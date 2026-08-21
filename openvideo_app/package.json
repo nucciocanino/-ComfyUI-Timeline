@@ -1,0 +1,17 @@
+{
+    "name":  "comfy-openvideo-timeline",
+    "private":  true,
+    "version":  "1.0.0",
+    "type":  "module",
+    "scripts":  {
+                    "dev":  "vite",
+                    "build":  "vite build --emptyOutDir",
+                    "preview":  "vite preview"
+                },
+    "dependencies":  {
+                         "openvideo":  "^0.2.8"
+                     },
+    "devDependencies":  {
+                            "vite":  "^5.0.0"
+                        }
+}

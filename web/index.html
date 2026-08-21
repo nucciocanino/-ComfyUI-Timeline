@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RBW Timeline</title>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #111;
+        color: #fff;
+        font-family: system-ui, sans-serif;
+        overflow: hidden;
+      }
+
+      #app {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+      }
+
+      #toolbar {
+        min-height: 44px;
+        background: #222;
+        border-bottom: 1px solid #333;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        background: #333;
+        color: #fff;
+        border: 1px solid #444;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #444;
+      }
+
+      #workspace {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        min-height: 0;
+      }
+
+      #player-column {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        border-right: 1px solid #2a2a2a;
+      }
+
+      #player-container {
+        flex: 1;
+        background: #000;
+        min-height: 240px;
+      }
+
+      #timeline-container {
+        height: 180px;
+        border-top: 1px solid #2a2a2a;
+        background: #151515;
+        padding: 12px;
+        color: #888;
+      }
+
+      #sidepanel {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        background: #171717;
+      }
+
+      #clip-list {
+        flex: 1;
+        overflow: auto;
+        margin: 0;
+        padding: 8px;
+        list-style: none;
+      }
+
+      #clip-list li {
+        border: 1px solid #2e2e2e;
+        border-radius: 6px;
+        padding: 8px;
+        margin-bottom: 8px;
+        cursor: pointer;
+      }
+
+      #clip-list li.selected {
+        border-color: #7c8dff;
+        background: #1d2238;
+      }
+
+      .clip-title {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .clip-meta {
+        font-size: 11px;
+        color: #aaa;
+      }
+
+      #editor {
+        border-top: 1px solid #2a2a2a;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 130px;
+        resize: vertical;
+        background: #101010;
+        color: #e5e5e5;
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        padding: 8px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
+      }
+
+      #status-badge {
+        margin-left: auto;
+        font-size: 11px;
+        color: #8f8f8f;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-BSgC4z-6.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div id="toolbar">
+        <button id="btn-play">Play/Pause</button>
+        <button id="btn-add-openvideo">Add Test Media</button>
+        <button id="btn-add-timeline">Add Timeline Clip</button>
+        <button id="btn-queue-clip">Queue Selected</button>
+        <button id="btn-sync">Sync Status</button>
+        <button id="btn-export">Export</button>
+        <button id="btn-import">Import</button>
+        <input id="import-file" type="file" accept=".json,application/json" style="display:none" />
+        <span id="status-badge">Loading...</span>
+      </div>
+
+      <div id="workspace">
+        <div id="player-column">
+          <div id="player-container"></div>
+          <div id="timeline-container">
+            OpenVideo preview active. Timeline data is driven by /rbw_timeline APIs.
+          </div>
+        </div>
+        <div id="sidepanel">
+          <ul id="clip-list"></ul>
+          <div id="editor">
+            <label for="workflow-json">Selected clip workflow JSON</label>
+            <textarea id="workflow-json" placeholder='{"1":{"inputs":{},"class_type":"..."}}'></textarea>
+            <button id="btn-save-workflow">Save Workflow To Clip</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
